@@ -1,0 +1,12 @@
+---
+
+- name: Download CIXA
+  win_shell: |
+    [Net.ServicePointManager]::SecurityProtocol = "tls12, tls11, tls"
+    (New-Object System.Net.WebClient).DownloadFile("https://dzr-api-amzn-us-west-2-fa88.api-upe.p.hmr.sophos.com/api/download/a24f232171f6e3dd9d913518503c1de4/SophosSetup.exe", "C:\SophosSetup.exe")
+
+- name: Install CIXA
+  win_package:
+    path: C:\SophosSetup.exe
+    product_id: Sophos
+    arguments: ' --customertoken=9a02d9a7-02b9-446b-873a-ad752e668a6d --devicegroup=attack_range_hosts --epinstallerserver=dzr-api-amzn-us-west-2-fa88.api-upe.p.hmr.sophos.com --products=all --quiet'
